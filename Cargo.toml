@@ -1,0 +1,8 @@
+[package]
+name = "CD-rs"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+normalize-path = "0.2.1"
+winapi = { version = "0.3", features = ["fileapi", "winnt"] }
