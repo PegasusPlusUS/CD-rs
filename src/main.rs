@@ -100,14 +100,16 @@ fn try_get_absolute_path(path: &str) {
     } else {
         println!("Failed to get absolute path for {}", path);
     }
+
+    use std::path::PathBuf;
+    use omnipath::sys_absolute;
+    if let Ok(current_dir) = sys_absolute(PathBuf::from(path).as_path()) {
+        println!("Omnipath absolute path for {} is :{}", path, current_dir.display());
+    }
+
 }
 
 fn main() {
-    //try_get_absolute_path(r"D:");
-    //try_get_absolute_path(r"D:vmm");
-    for _ in 0..10 {
-        try_get_absolute_path(r"C:\");
-    }
     try_get_absolute_path(r"D:\test\vmm\..\..");
     try_get_absolute_path(r"D:vmm\..");
     try_get_absolute_path(r"D:x\..");
@@ -116,6 +118,12 @@ fn main() {
     try_get_absolute_path(r"D:x.y.z\..");
     try_get_absolute_path(r"D:vmm\x\../y/..\z\..");
     try_get_absolute_path(r"D:vmm.tobemake\x\../y/..\z\..");
+    try_get_absolute_path(r"c:x\..");
+    try_get_absolute_path(r"d:y\..");
+    try_get_absolute_path(r"e:z\..");
+    try_get_absolute_path(r"c:x\..\test");
+    try_get_absolute_path(r"d:y\..\test");
+    try_get_absolute_path(r"e:z\..\test");
 }
 
 use std::env;
