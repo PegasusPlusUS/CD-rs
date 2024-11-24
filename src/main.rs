@@ -109,22 +109,50 @@ fn try_get_absolute_path(path: &str) {
 
 }
 
-fn main() {
-    try_get_absolute_path(r"D:\test\vmm\..\..");
-    try_get_absolute_path(r"D:vmm\..");
-    try_get_absolute_path(r"D:x\..");
-    try_get_absolute_path(r"D:y\..");
-    try_get_absolute_path(r"D:z\..");
-    try_get_absolute_path(r"D:x.y.z\..");
-    try_get_absolute_path(r"D:vmm\x\../y/..\z\..");
-    try_get_absolute_path(r"D:vmm.tobemake\x\../y/..\z\..");
-    try_get_absolute_path(r"c:x\..");
-    try_get_absolute_path(r"d:y\..");
-    try_get_absolute_path(r"e:z\..");
-    try_get_absolute_path(r"c:x\..\test");
-    try_get_absolute_path(r"d:y\..\test");
-    try_get_absolute_path(r"e:z\..\test");
+fn print_cwd() {
+    if let Ok(cwd) = std::env::current_dir() {
+        println!("CWD is {:#?}", cwd.display());
+    } else {
+        println!("std::env::current_dir() failed");
+    }
 }
+
+fn set_pwd(path: &str) {
+    if let Ok(()) = std::env::set_current_dir(path) {
+        println!("Set CWD as {}", path);
+    } else {
+        println!("Set CWD {} failed.", path);
+    }
+}
+
+fn main() {
+    // try_get_absolute_path(r"D:\test\vmm\..\..");
+    // try_get_absolute_path(r"D:vmm\..");
+    // try_get_absolute_path(r"D:x\..");
+    // try_get_absolute_path(r"D:y\..");
+    // try_get_absolute_path(r"D:z\..");
+    // try_get_absolute_path(r"D:x.y.z\..");
+    // try_get_absolute_path(r"D:vmm\x\../y/..\z\..");
+    // try_get_absolute_path(r"D:vmm.tobemake\x\../y/..\z\..");
+    // try_get_absolute_path(r"c:x\..");
+    // try_get_absolute_path(r"d:y\..");
+    // try_get_absolute_path(r"e:z\..");
+    // try_get_absolute_path(r"c:x\..\test");
+    // try_get_absolute_path(r"d:y\..\test");
+    // try_get_absolute_path(r"e:z\..\test");
+    set_pwd(r"C:\Users");
+    try_get_absolute_path("c:test");
+    print_cwd();
+    set_pwd(r"D:\Project");
+    try_get_absolute_path("d:test");
+    print_cwd();
+    set_pwd(r"E:\Study\nushell");
+    print_cwd();
+    try_get_absolute_path("c:test");
+    try_get_absolute_path("d:test");
+    try_get_absolute_path("e:test");
+}
+
 
 use std::env;
 use std::path::Path;
