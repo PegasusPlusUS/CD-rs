@@ -3,6 +3,15 @@ name = "CD-rs"
 version = "0.1.0"
 edition = "2021"
 
+[lib]
+name="pwd_per_drive"
+
+[[bin]]
+name="set_pwd_per_drive"
+
+[[bin]]
+name="show_pwd_per_drive"
+
 [dependencies]
 normalize-path = "0.2.1"
 winapi = { version = "0.3", features = ["fileapi", "winnt"] }
